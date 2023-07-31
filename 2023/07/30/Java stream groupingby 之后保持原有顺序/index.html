@@ -6,7 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="清风徐徐">
     <meta name="description" content="LinkedHashMap是后者通过双向链表保证数据插入的顺序和访问的顺序一致。
-12345678910List&amp;lt;CustomerStageVo&amp;gt; levelStages = indexMapper.getLevelStage(">
+List&amp;lt;CustomerStageVo&gt; levelStages = indexMapper.getLevelStage();
+
+return lev">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -51,7 +53,8 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="清风徐徐" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -122,17 +125,6 @@
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
       
       <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
     </a>
     
   </li>
@@ -234,17 +226,6 @@
         
         <li class="m-nav-item">
 	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
 		<a href="/friends" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fas fa-address-book"></i>
@@ -320,7 +301,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    90
+                    88
                 </div>
                 
 
@@ -342,13 +323,25 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>LinkedHashMap是后者通过双向链表保证数据插入的顺序和访问的顺序一致。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;CustomerStageVo&gt; levelStages = indexMapper.getLevelStage();</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> levelStages.stream().map(stage -&gt; &#123;</span><br><span class="line">    flowParam.setStageId(stage.getStageId());</span><br><span class="line">    <span class="comment">//获取阶段中流入的客户数</span></span><br><span class="line">    stage.setInputCustomerNum(indexMapper.getInputStageCustomer(flowParam));</span><br><span class="line">    <span class="comment">//获取阶段中不变的客户数</span></span><br><span class="line">    stage.setNoChangeCustomerNum(indexMapper.getNoChangeStageCustomer(flowParam));</span><br><span class="line">    <span class="keyword">return</span> stage;</span><br><span class="line">&#125;).collect(groupingBy(CustomerStageVo::getStageName,LinkedHashMap::<span class="keyword">new</span>,Collectors.toCollection(ArrayList::<span class="keyword">new</span>));</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">CustomerStageVo</span><span class="token punctuation">></span></span> levelStages <span class="token operator">=</span> indexMapper<span class="token punctuation">.</span><span class="token function">getLevelStage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">return</span> levelStages<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>stage <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
+    flowParam<span class="token punctuation">.</span><span class="token function">setStageId</span><span class="token punctuation">(</span>stage<span class="token punctuation">.</span><span class="token function">getStageId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//获取阶段中流入的客户数</span>
+    stage<span class="token punctuation">.</span><span class="token function">setInputCustomerNum</span><span class="token punctuation">(</span>indexMapper<span class="token punctuation">.</span><span class="token function">getInputStageCustomer</span><span class="token punctuation">(</span>flowParam<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//获取阶段中不变的客户数</span>
+    stage<span class="token punctuation">.</span><span class="token function">setNoChangeCustomerNum</span><span class="token punctuation">(</span>indexMapper<span class="token punctuation">.</span><span class="token function">getNoChangeStageCustomer</span><span class="token punctuation">(</span>flowParam<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> stage<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token function">groupingBy</span><span class="token punctuation">(</span><span class="token class-name">CustomerStageVo</span><span class="token operator">::</span><span class="token function">getStageName</span><span class="token punctuation">,</span><span class="token class-name">LinkedHashMap</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">,</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toCollection</span><span class="token punctuation">(</span><span class="token class-name">ArrayList</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -561,6 +554,9 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -683,7 +679,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">703</span>
+                        class="white-color">698</span>
             
             
             

@@ -7,7 +7,8 @@
     <meta name="keywords" content="测试文章, 清风徐徐">
     <meta name="description" content="数据库行锁和表锁行锁行锁就是一锁锁一行或者多行记录，mysql的行锁是基于索引加载的，所以行锁是要加在索引响应的行上，即命中索引
 行锁的特征：锁冲突概率低，并发性高，但是会有死锁的情况出现。
-12345678910-- Transectio">
+-- Transection A
+SET aut">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -52,7 +53,8 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="清风徐徐" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -123,17 +125,6 @@
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
       
       <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
     </a>
     
   </li>
@@ -235,17 +226,6 @@
         
         <li class="m-nav-item">
 	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
 		<a href="/friends" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fas fa-address-book"></i>
@@ -334,7 +314,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    412
+                    411
                 </div>
                 
 
@@ -356,6 +336,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
@@ -363,15 +346,38 @@
             <div id="articleContent">
                 <h2 id="数据库行锁和表锁"><a href="#数据库行锁和表锁" class="headerlink" title="数据库行锁和表锁"></a>数据库行锁和表锁</h2><h3 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h3><p>行锁就是一锁锁一行或者多行记录，mysql的<strong>行锁是基于索引加载的</strong>，所以行锁是要加在索引响应的行上，即命中索引</p>
 <p>行锁的特征：锁冲突概率低，并发性高，但是会有死锁的情况出现。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Transection A</span></span><br><span class="line"><span class="keyword">SET</span> autocommit <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> test_lock <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">4</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>; <span class="operator">/</span><span class="operator">/</span>id为<span class="number">4</span>的这一行会被加锁</span><br><span class="line"><span class="keyword">UPDATE</span> test_lock <span class="keyword">SET</span> v <span class="operator">=</span> <span class="number">40</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">4</span> ;</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Transection B</span></span><br><span class="line"><span class="keyword">SET</span> autocommit <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> test_lock <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">4</span> ; <span class="operator">/</span><span class="operator">/</span>等待事物A释放锁</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- Transection A</span>
+<span class="token keyword">SET</span> autocommit <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> test_lock <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">4</span> <span class="token keyword">FOR</span> <span class="token keyword">UPDATE</span><span class="token punctuation">;</span> <span class="token comment">//id为4的这一行会被加锁</span>
+<span class="token keyword">UPDATE</span> test_lock <span class="token keyword">SET</span> v <span class="token operator">=</span> <span class="token number">40</span> <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">4</span> <span class="token punctuation">;</span>
+<span class="token keyword">COMMIT</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- Transection B</span>
+<span class="token keyword">SET</span> autocommit <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> test_lock <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">4</span> <span class="token punctuation">;</span> <span class="token comment">//等待事物A释放锁</span>
+<span class="token keyword">COMMIT</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h3 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h3><p>表锁就是一锁锁一整张表，在表被锁定期间，其他事务不能对该表进行操作，必须等当前表的锁被释放后才能进行操作。<strong>表锁响应的是非索引字段，即全表扫描</strong>，全表扫描时锁定整张表，sql语句可以通过执行计划看出扫描了多少条记录。</p>
 <p>表锁的优势：开销小；加锁快；无死锁<br>表锁的劣势：锁粒度大，发生锁冲突的概率高，并发处理能力低<br>加锁的方式：自动加锁。查询操作（SELECT），会自动给涉及的所有表加读锁，更新操作（UPDATE、DELETE、INSERT），会自动给涉及的表加写锁。也可以显示加锁：</p>
-<h4 id="共享读锁：lock-table-tableName-read"><a href="#共享读锁：lock-table-tableName-read" class="headerlink" title="共享读锁：lock table tableName read;"></a>共享读锁：lock table tableName read;</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Transection A</span></span><br><span class="line">lock <span class="keyword">table</span> test_lock read;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_lock;</span><br><span class="line"><span class="comment">-- Table &#x27;test_lock&#x27; was locked with a READ lock and can&#x27;t be updated</span></span><br><span class="line"><span class="keyword">UPDATE</span> test_lock <span class="keyword">SET</span> v <span class="operator">=</span> <span class="number">434</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">4</span> ;</span><br><span class="line"><span class="comment">-- Table &#x27;test_lock_2&#x27; was not locked with LOCK TABLES</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_lock_2;</span><br><span class="line">unlock tables;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="共享读锁：lock-table-tableName-read"><a href="#共享读锁：lock-table-tableName-read" class="headerlink" title="共享读锁：lock table tableName read;"></a>共享读锁：lock table tableName read;</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- Transection A</span>
+<span class="token keyword">lock</span> <span class="token keyword">table</span> test_lock <span class="token keyword">read</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test_lock<span class="token punctuation">;</span>
+<span class="token comment">-- Table 'test_lock' was locked with a READ lock and can't be updated</span>
+<span class="token keyword">UPDATE</span> test_lock <span class="token keyword">SET</span> v <span class="token operator">=</span> <span class="token number">434</span> <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">4</span> <span class="token punctuation">;</span>
+<span class="token comment">-- Table 'test_lock_2' was not locked with LOCK TABLES</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test_lock_2<span class="token punctuation">;</span>
+<span class="token keyword">unlock</span> <span class="token keyword">tables</span><span class="token punctuation">;</span>
 
-<h4 id="独占写锁：lock-table-tableName-write"><a href="#独占写锁：lock-table-tableName-write" class="headerlink" title="独占写锁：lock table tableName write;"></a>独占写锁：lock table tableName write;</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> autocommit<span class="operator">=</span><span class="number">0</span>;</span><br><span class="line">lock <span class="keyword">table</span> test_lock write;</span><br><span class="line"><span class="keyword">update</span> test_lock <span class="keyword">set</span> v<span class="operator">=</span> <span class="number">4000</span> <span class="keyword">where</span> k<span class="operator">=</span> <span class="number">4</span>;</span><br><span class="line"><span class="comment">-- Table &#x27;innodb_lock&#x27; was not locked with LOCK TABLES</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_lock_2;</span><br><span class="line">unlock tables;</span><br></pre></td></tr></table></figure>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="独占写锁：lock-table-tableName-write"><a href="#独占写锁：lock-table-tableName-write" class="headerlink" title="独占写锁：lock table tableName write;"></a>独占写锁：lock table tableName write;</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> autocommit<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">lock</span> <span class="token keyword">table</span> test_lock <span class="token keyword">write</span><span class="token punctuation">;</span>
+<span class="token keyword">update</span> test_lock <span class="token keyword">set</span> v<span class="token operator">=</span> <span class="token number">4000</span> <span class="token keyword">where</span> k<span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+<span class="token comment">-- Table 'innodb_lock' was not locked with LOCK TABLES</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test_lock_2<span class="token punctuation">;</span>
+<span class="token keyword">unlock</span> <span class="token keyword">tables</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -574,6 +580,9 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -696,7 +705,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">703</span>
+                        class="white-color">698</span>
             
             
             

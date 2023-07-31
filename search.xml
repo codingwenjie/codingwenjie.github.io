@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>测试文章3</title>
+      <link href="/2023/07/30/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A03/"/>
+      <url>/2023/07/30/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A03/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 默认 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 默认 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/07/30/Java%20stream%20groupingby%20%E4%B9%8B%E5%90%8E%E4%BF%9D%E6%8C%81%E5%8E%9F%E6%9C%89%E9%A1%BA%E5%BA%8F/"/>
+      <url>/2023/07/30/Java%20stream%20groupingby%20%E4%B9%8B%E5%90%8E%E4%BF%9D%E6%8C%81%E5%8E%9F%E6%9C%89%E9%A1%BA%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<p>LinkedHashMap是后者通过双向链表保证数据插入的顺序和访问的顺序一致。</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">CustomerStageVo</span><span class="token punctuation">></span></span> levelStages <span class="token operator">=</span> indexMapper<span class="token punctuation">.</span><span class="token function">getLevelStage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">return</span> levelStages<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>stage <span class="token operator">-></span> <span class="token punctuation">&#123;</span>    flowParam<span class="token punctuation">.</span><span class="token function">setStageId</span><span class="token punctuation">(</span>stage<span class="token punctuation">.</span><span class="token function">getStageId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">//获取阶段中流入的客户数</span>    stage<span class="token punctuation">.</span><span class="token function">setInputCustomerNum</span><span class="token punctuation">(</span>indexMapper<span class="token punctuation">.</span><span class="token function">getInputStageCustomer</span><span class="token punctuation">(</span>flowParam<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">//获取阶段中不变的客户数</span>    stage<span class="token punctuation">.</span><span class="token function">setNoChangeCustomerNum</span><span class="token punctuation">(</span>indexMapper<span class="token punctuation">.</span><span class="token function">getNoChangeStageCustomer</span><span class="token punctuation">(</span>flowParam<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">return</span> stage<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token function">groupingBy</span><span class="token punctuation">(</span><span class="token class-name">CustomerStageVo</span><span class="token operator">::</span><span class="token function">getStageName</span><span class="token punctuation">,</span><span class="token class-name">LinkedHashMap</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">,</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toCollection</span><span class="token punctuation">(</span><span class="token class-name">ArrayList</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>测试文章</title>
+      <link href="/2023/07/30/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/07/30/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="数据库行锁和表锁"><a href="#数据库行锁和表锁" class="headerlink" title="数据库行锁和表锁"></a>数据库行锁和表锁</h2><h3 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h3><p>行锁就是一锁锁一行或者多行记录，mysql的<strong>行锁是基于索引加载的</strong>，所以行锁是要加在索引响应的行上，即命中索引</p><p>行锁的特征：锁冲突概率低，并发性高，但是会有死锁的情况出现。</p><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- Transection A</span><span class="token keyword">SET</span> autocommit <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> test_lock <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">4</span> <span class="token keyword">FOR</span> <span class="token keyword">UPDATE</span><span class="token punctuation">;</span> <span class="token comment">//id为4的这一行会被加锁</span><span class="token keyword">UPDATE</span> test_lock <span class="token keyword">SET</span> v <span class="token operator">=</span> <span class="token number">40</span> <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">4</span> <span class="token punctuation">;</span><span class="token keyword">COMMIT</span><span class="token punctuation">;</span><span class="token comment">-- Transection B</span><span class="token keyword">SET</span> autocommit <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> test_lock <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">4</span> <span class="token punctuation">;</span> <span class="token comment">//等待事物A释放锁</span><span class="token keyword">COMMIT</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h3><p>表锁就是一锁锁一整张表，在表被锁定期间，其他事务不能对该表进行操作，必须等当前表的锁被释放后才能进行操作。<strong>表锁响应的是非索引字段，即全表扫描</strong>，全表扫描时锁定整张表，sql语句可以通过执行计划看出扫描了多少条记录。</p><p>表锁的优势：开销小；加锁快；无死锁<br>表锁的劣势：锁粒度大，发生锁冲突的概率高，并发处理能力低<br>加锁的方式：自动加锁。查询操作（SELECT），会自动给涉及的所有表加读锁，更新操作（UPDATE、DELETE、INSERT），会自动给涉及的表加写锁。也可以显示加锁：</p><h4 id="共享读锁：lock-table-tableName-read"><a href="#共享读锁：lock-table-tableName-read" class="headerlink" title="共享读锁：lock table tableName read;"></a>共享读锁：lock table tableName read;</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- Transection A</span><span class="token keyword">lock</span> <span class="token keyword">table</span> test_lock <span class="token keyword">read</span><span class="token punctuation">;</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test_lock<span class="token punctuation">;</span><span class="token comment">-- Table 'test_lock' was locked with a READ lock and can't be updated</span><span class="token keyword">UPDATE</span> test_lock <span class="token keyword">SET</span> v <span class="token operator">=</span> <span class="token number">434</span> <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">4</span> <span class="token punctuation">;</span><span class="token comment">-- Table 'test_lock_2' was not locked with LOCK TABLES</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test_lock_2<span class="token punctuation">;</span><span class="token keyword">unlock</span> <span class="token keyword">tables</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h4 id="独占写锁：lock-table-tableName-write"><a href="#独占写锁：lock-table-tableName-write" class="headerlink" title="独占写锁：lock table tableName write;"></a>独占写锁：lock table tableName write;</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> autocommit<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token keyword">lock</span> <span class="token keyword">table</span> test_lock <span class="token keyword">write</span><span class="token punctuation">;</span><span class="token keyword">update</span> test_lock <span class="token keyword">set</span> v<span class="token operator">=</span> <span class="token number">4000</span> <span class="token keyword">where</span> k<span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span><span class="token comment">-- Table 'innodb_lock' was not locked with LOCK TABLES</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test_lock_2<span class="token punctuation">;</span><span class="token keyword">unlock</span> <span class="token keyword">tables</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试玩玩 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> test </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>testAtc</title>
+      <link href="/2023/07/30/%E6%B5%8B%E8%AF%95%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/07/30/%E6%B5%8B%E8%AF%95%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p>的就饿u电话i恶无敌无敌耐低温年底我的 </p><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><p>等我i记得那位i的那位</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 文章 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/07/30/Kubernetes%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2023/07/30/Kubernetes%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Kubernetes能做什么？"><a href="#Kubernetes能做什么？" class="headerlink" title="Kubernetes能做什么？"></a>Kubernetes能做什么？</h2><p> Kubernetes 为你提供了一个可弹性运行分布式系统的框架。 Kubernetes 会满足你的扩展要求、故障转移你的应用、提供部署模式等</p><ul><li><strong>服务发现和负载均衡</strong></li><li><strong>存储编排</strong></li><li><strong>自动部署和回滚</strong></li><li><strong>自动完成装箱计算</strong></li><li><strong>自我修复</strong></li><li><strong>密钥与配置管理</strong></li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2023/07/30/hello-world/"/>
+      <url>/2023/07/30/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
