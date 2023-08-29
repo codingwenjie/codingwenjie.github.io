@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>HEXO常用命令</title>
+      <link href="/2023/08/29/HEXO%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+      <url>/2023/08/29/HEXO%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><table><thead><tr><th>命令</th><th>描述</th></tr></thead><tbody><tr><td>hexo new post “title”</td><td>新建文章</td></tr><tr><td>hexo new page “title”</td><td>新建页面</td></tr><tr><td>hexo generate&#x2F;g</td><td>生成静态页面至public目录</td></tr><tr><td>hexo server&#x2F;s</td><td>开启本地预览访问端口</td></tr><tr><td>hexo deploy&#x2F;d</td><td>将.deploy目录部署到GitHub</td></tr><tr><td>hexo clean</td><td>清除缓存文件等</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> 默认 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 默认 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>测试文章3</title>
       <link href="/2023/07/30/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A03/"/>
       <url>/2023/07/30/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A03/</url>
