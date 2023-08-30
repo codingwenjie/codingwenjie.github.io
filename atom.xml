@@ -6,7 +6,7 @@
   <link href="https://codingwenjie.github.io/atom.xml" rel="self"/>
   
   <link href="https://codingwenjie.github.io/"/>
-  <updated>2023-08-29T04:32:09.770Z</updated>
+  <updated>2023-08-30T13:49:55.002Z</updated>
   <id>https://codingwenjie.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CountDownLatch和Future用法</title>
+    <link href="https://codingwenjie.github.io/2023/08/30/CountDownLatch%E5%92%8CFuture%E7%94%A8%E6%B3%95/"/>
+    <id>https://codingwenjie.github.io/2023/08/30/CountDownLatch%E5%92%8CFuture%E7%94%A8%E6%B3%95/</id>
+    <published>2023-08-30T13:49:03.000Z</published>
+    <updated>2023-08-30T13:49:55.002Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-CountDownLatch-概念&quot;&gt;&lt;a href=&quot;#1-CountDownLatch-概念&quot; class=&quot;headerlink&quot; title=&quot;1. CountDownLatch 概念&quot;&gt;&lt;/a&gt;&lt;strong&gt;1. CountDownLatch</summary>
+        
+      
+    
+    
+    
+    <category term="多线程" scheme="https://codingwenjie.github.io/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+    <category term="java" scheme="https://codingwenjie.github.io/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>HEXO常用命令</title>
