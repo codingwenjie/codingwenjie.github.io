@@ -4,11 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="清风徐徐">
-    <meta name="description" content="LinkedHashMap是后者通过双向链表保证数据插入的顺序和访问的顺序一致。
-List&amp;lt;CustomerStageVo&gt; levelStages = indexMapper.getLevelStage();
-
-return lev">
+    <meta name="keywords" content="TransmittableThreadLocal 的使用指南, 清风徐徐">
+    <meta name="description" content="TransmittableThreadLocal 的使用指南简介TransmittableThreadLocal 是一种用于多线程环境下的数据传递的工具。它是 ThreadLocal 的增强版本，能够在不同线程之间有效传递数据，尤其适用于线">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +17,7 @@ return lev">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>清风徐徐</title>
+    <title>TransmittableThreadLocal 的使用指南 | 清风徐徐</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -251,12 +248,12 @@ return lev">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">TransmittableThreadLocal 的使用指南</h1>
                 </div>
             </div>
         </div>
@@ -278,12 +275,25 @@ return lev">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                <span class="chip bg-color">多线程</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category">
+                                java
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -292,7 +302,7 @@ return lev">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-07-30
+                    2023-10-16
                 </div>
                 
 
@@ -301,14 +311,14 @@ return lev">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    88
+                    733
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -331,18 +341,79 @@ return lev">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>LinkedHashMap是后者通过双向链表保证数据插入的顺序和访问的顺序一致。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">CustomerStageVo</span><span class="token punctuation">></span></span> levelStages <span class="token operator">=</span> indexMapper<span class="token punctuation">.</span><span class="token function">getLevelStage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <h1 id="TransmittableThreadLocal-的使用指南"><a href="#TransmittableThreadLocal-的使用指南" class="headerlink" title="TransmittableThreadLocal 的使用指南"></a>TransmittableThreadLocal 的使用指南</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>TransmittableThreadLocal</code> 是一种用于多线程环境下的数据传递的工具。它是 <code>ThreadLocal</code> 的增强版本，能够在不同线程之间有效传递数据，尤其适用于线程池、异步任务等场景。</p>
+<h2 id="如何使用-TransmittableThreadLocal"><a href="#如何使用-TransmittableThreadLocal" class="headerlink" title="如何使用 TransmittableThreadLocal"></a>如何使用 TransmittableThreadLocal</h2><h3 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1. 引入依赖"></a>1. 引入依赖</h3><p>项目中引入了 <code>TransmittableThreadLocal</code> 相关的依赖。可以使用阿里巴巴的 Transmittable-Thread-Local，具体依赖可以在 Maven 中配置：</p>
+<p>Maven:</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.alibaba<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>transmittable-thread-local<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.14.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">return</span> levelStages<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>stage <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
-    flowParam<span class="token punctuation">.</span><span class="token function">setStageId</span><span class="token punctuation">(</span>stage<span class="token punctuation">.</span><span class="token function">getStageId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">//获取阶段中流入的客户数</span>
-    stage<span class="token punctuation">.</span><span class="token function">setInputCustomerNum</span><span class="token punctuation">(</span>indexMapper<span class="token punctuation">.</span><span class="token function">getInputStageCustomer</span><span class="token punctuation">(</span>flowParam<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">//获取阶段中不变的客户数</span>
-    stage<span class="token punctuation">.</span><span class="token function">setNoChangeCustomerNum</span><span class="token punctuation">(</span>indexMapper<span class="token punctuation">.</span><span class="token function">getNoChangeStageCustomer</span><span class="token punctuation">(</span>flowParam<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> stage<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token function">groupingBy</span><span class="token punctuation">(</span><span class="token class-name">CustomerStageVo</span><span class="token operator">::</span><span class="token function">getStageName</span><span class="token punctuation">,</span><span class="token class-name">LinkedHashMap</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">,</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toCollection</span><span class="token punctuation">(</span><span class="token class-name">ArrayList</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-创建-TransmittableThreadLocal-变量"><a href="#2-创建-TransmittableThreadLocal-变量" class="headerlink" title="2. 创建 TransmittableThreadLocal 变量"></a>2. 创建 TransmittableThreadLocal 变量</h3><p>在你的 Java 代码中，创建 <code>TransmittableThreadLocal</code> 类型的变量，定义需要在线程间传递的数据类型。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>ttl<span class="token punctuation">.</span></span><span class="token class-name">TransmittableThreadLocal</span></span><span class="token punctuation">;</span>
 
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SecurityContextHolder</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">TransmittableThreadLocal</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span><span class="token punctuation">></span></span> <span class="token constant">THREAD_LOCAL</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TransmittableThreadLocal</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token punctuation">,</span> <span class="token class-name">Object</span> value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> map <span class="token operator">=</span> <span class="token function">getLocalMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token constant">EMPTY</span> <span class="token operator">:</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> map <span class="token operator">=</span> <span class="token function">getLocalMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> map <span class="token operator">=</span> <span class="token function">getLocalMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token class-name">Convert</span><span class="token punctuation">.</span><span class="token function">toStr</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token constant">EMPTY</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token class-name">T</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> clazz<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> map <span class="token operator">=</span> <span class="token function">getLocalMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">cast</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> <span class="token function">getLocalMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> map <span class="token operator">=</span> <span class="token constant">THREAD_LOCAL</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>map <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token constant">THREAD_LOCAL</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> map<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-设置和获取数据"><a href="#3-设置和获取数据" class="headerlink" title="3. 设置和获取数据"></a>3. 设置和获取数据</h3><p>在你的应用程序中，你可以使用 <code>TransmittableThreadLocal</code> 来设置和获取数据。例如，将当前登录的用户信息放在ThreadLocal中：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">SecurityContextHolder</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">SecurityConstants<span class="token punctuation">.</span>Details</span><span class="token punctuation">.</span><span class="token constant">LOGIN_USER</span><span class="token punctuation">.</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">JSONObject</span><span class="token punctuation">.</span><span class="token function">parseObject</span><span class="token punctuation">(</span>loginUserStr<span class="token punctuation">,</span> <span class="token class-name">LoginUser</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后在另一个线程中，你可以获取该数据：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> user <span class="token operator">=</span> <span class="token class-name">SecurityContextHolder</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token class-name">SecurityConstants<span class="token punctuation">.</span>Details</span><span class="token punctuation">.</span><span class="token constant">LOGIN_USER</span><span class="token punctuation">.</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>使用 <code>TransmittableThreadLocal</code> 时需要注意以下事项：</p>
+<ol>
+<li><p><strong>依赖包版本</strong>：确保你的项目使用了兼容版本的 <code>TransmittableThreadLocal</code> 依赖。通常，你应该使用最新版本以获取最新功能和修复。</p>
+</li>
+<li><p><strong>线程池和异步任务</strong>：主要用途是支持在线程池和异步任务中传递数据，确保你的线程池配置和异步任务调用兼容 <code>TransmittableThreadLocal</code>。</p>
+</li>
+<li><p><strong>清理数据</strong>：一定要在不再需要数据时及时清理，以避免内存泄漏。</p>
+</li>
+<li><p><strong>线程安全性</strong>：<code>TransmittableThreadLocal</code> 本身是线程安全的，但要确保你存储在其中的数据是线程安全的，以避免并发问题。</p>
+</li>
+<li><p><strong>性能影响</strong>：尽管 <code>TransmittableThreadLocal</code> 是为了解决线程池和异步任务中的问题而设计的，但在一般多线程应用中使用时，可能会带来轻微的性能开销。请根据应用需求进行权衡。</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>TransmittableThreadLocal</code> 是一个用于多线程环境下数据传递的有用工具，特别适用于线程池和异步任务。通过引入依赖，创建变量，设置和获取数据，以及及时清理数据，你可以在多线程应用中安全地传递上下文数据。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/alibaba/transmittable-thread-local">Transmittable-Thread-Local GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/alibaba/transmittable-thread-local/wiki">阿里巴巴 Transmittable-Thread-Local 文档</a></li>
+</ul>
 
                 
             </div>
@@ -369,7 +440,7 @@ return lev">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://codingwenjie.github.io/2023/07/30/Java%20stream%20groupingby%20%E4%B9%8B%E5%90%8E%E4%BF%9D%E6%8C%81%E5%8E%9F%E6%9C%89%E9%A1%BA%E5%BA%8F/">https://codingwenjie.github.io/2023/07/30/Java%20stream%20groupingby%20%E4%B9%8B%E5%90%8E%E4%BF%9D%E6%8C%81%E5%8E%9F%E6%9C%89%E9%A1%BA%E5%BA%8F/</a>
+                    <a href="https://codingwenjie.github.io/2023/10/16/TransmittableThreadLocal-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">https://codingwenjie.github.io/2023/10/16/TransmittableThreadLocal-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -406,7 +477,11 @@ return lev">
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                    <span class="chip bg-color">多线程</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -447,17 +522,18 @@ return lev">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/08/29/HEXO%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+                <a href="/2023/10/16/TransmittableThreadLocal-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="HEXO常用命令">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="TransmittableThreadLocal 的使用指南">
                         
-                        <span class="card-title">HEXO常用命令</span>
+                        <span class="card-title">TransmittableThreadLocal 的使用指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -467,26 +543,27 @@ return lev">
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E9%BB%98%E8%AE%A4/" class="post-category">
-                                    默认
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%BB%98%E8%AE%A4/">
-                        <span class="chip bg-color">默认</span>
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="chip bg-color">多线程</span>
                     </a>
                     
                 </div>
@@ -500,13 +577,13 @@ return lev">
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/07/30/Kubernetes%E5%AD%A6%E4%B9%A0/">
+                <a href="/2023/08/30/CountDownLatch%E5%92%8CFuture%E7%94%A8%E6%B3%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="CountDownLatch和Future用法">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">CountDownLatch和Future用法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -517,15 +594,27 @@ return lev">
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-30
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            清风徐徐
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-category">
+                                    多线程
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
                 </div>
                 
             </div>
