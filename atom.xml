@@ -167,6 +167,31 @@
   </entry>
   
   <entry>
+    <title>Spring中的@ConditionalOnExpression注解</title>
+    <link href="https://codingwenjie.github.io/2023/07/26/Spring%E4%B8%AD%E7%9A%84@ConditionalOnExpression%E6%B3%A8%E8%A7%A3/"/>
+    <id>https://codingwenjie.github.io/2023/07/26/Spring%E4%B8%AD%E7%9A%84@ConditionalOnExpression%E6%B3%A8%E8%A7%A3/</id>
+    <published>2023-07-26T11:29:00.000Z</published>
+    <updated>2024-03-04T14:41:24.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;ConditionalOnExpression&quot;&gt;&lt;a href=&quot;#ConditionalOnExpression&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Spring" scheme="https://codingwenjie.github.io/categories/Spring/"/>
+    
+    
+    <category term="java" scheme="https://codingwenjie.github.io/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>TransmittableThreadLocal 的使用指南</title>
     <link href="https://codingwenjie.github.io/2023/06/17/TransmittableThreadLocal%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"/>
     <id>https://codingwenjie.github.io/2023/06/17/TransmittableThreadLocal%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</id>

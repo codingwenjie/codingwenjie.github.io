@@ -154,6 +154,31 @@
     
     
     <entry>
+      <title>Spring中的@ConditionalOnExpression注解</title>
+      <link href="/2023/07/26/Spring%E4%B8%AD%E7%9A%84@ConditionalOnExpression%E6%B3%A8%E8%A7%A3/"/>
+      <url>/2023/07/26/Spring%E4%B8%AD%E7%9A%84@ConditionalOnExpression%E6%B3%A8%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ConditionalOnExpression"><a href="#ConditionalOnExpression" class="headerlink" title="@ConditionalOnExpression"></a>@ConditionalOnExpression</h2><p><code>@ConditionalOnExpression</code> 是 Spring提供的一个条件注解。</p><p>该注解用于根据指定的条件表达式来决定是否启用或禁用一个 Spring 组件。</p><h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><p>在配置类、Bean 方法或自定义注解上标记 <code>@ConditionalOnExpression</code> 注解，以基于特定条件来决定是否创建或装配相关的 Bean。</p><p>示例代码：</p><pre class="line-numbers language-none"><code class="language-none">@Configurationpublic class MyConfiguration &#123;    @Bean    @ConditionalOnExpression(&quot;$&#123;config.face.enabled:true&#125;&quot;)    public MyBean myBean() &#123;        return new MyBean();    &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>在上述示例中，<code>@ConditionalOnExpression(&quot;$&#123;config.face.enabled:true&#125;&quot;)</code> 表示当条件表达式 <code>$&#123;config.face.enabled:true&#125;</code> 的结果为真时，才会创建并注册名为 <code>myBean</code> 的 Bean。</p><p>配置文件：</p><pre class="line-numbers language-none"><code class="language-none">config:  face:    enabled: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p><code>$&#123;config.face.enabled:true&#125;</code> 是一个条件表达式，它可以是任意的 SpEL（Spring Expression Language）表达式。在这个表达式中，<code>$&#123;config.face.enabled&#125;</code> 是一个占位符，表示从配置文件<code>ymal</code>获取一个属性值，如果该属性不存在，则使用默认值 <code>true</code>。</p><p>通过使用 <code>@ConditionalOnExpression</code> 注解，可以根据条件表达式动态控制 Bean 的创建和装配。这使得应用在不同的环境或配置下具有灵活的行为。</p><p>需要注意的是，条件表达式的结果类型必须为布尔值。如果条件表达式的结果为 <code>true</code>，则相应的 Bean 将被创建和装配；如果结果为 <code>false</code>，则该 Bean 将被忽略。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>@ConditionalOnExpression</code> 注解是一个在 Spring中非常有用的条件注解之一。它使得根据特定条件来控制组件的创建和装配成为可能。通过编写条件表达式，并将其与 <code>@ConditionalOnExpression</code> 注解结合使用，可以在应用程序中实现更灵活的配置和条件性的行为。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Spring </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>TransmittableThreadLocal 的使用指南</title>
       <link href="/2023/06/17/TransmittableThreadLocal%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"/>
       <url>/2023/06/17/TransmittableThreadLocal%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
