@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>使用@Async注解报错提示没有返回值</title>
+      <link href="/2024/02/10/%E4%BD%BF%E7%94%A8@Async%E6%B3%A8%E8%A7%A3%E6%8A%A5%E9%94%99%E6%8F%90%E7%A4%BA%E6%B2%A1%E6%9C%89%E8%BF%94%E5%9B%9E%E5%80%BC/"/>
+      <url>/2024/02/10/%E4%BD%BF%E7%94%A8@Async%E6%B3%A8%E8%A7%A3%E6%8A%A5%E9%94%99%E6%8F%90%E7%A4%BA%E6%B2%A1%E6%9C%89%E8%BF%94%E5%9B%9E%E5%80%BC/</url>
+      
+        <content type="html"><![CDATA[<h2 id="使用-Async注解报错提示没有返回值"><a href="#使用-Async注解报错提示没有返回值" class="headerlink" title="使用@Async注解报错提示没有返回值"></a>使用@Async注解报错提示没有返回值</h2><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>报错信息如下：</p><p><img src="http://www.kdocs.cn/api/v3/office/copy/bFFKUytlZEZkMUhNeGRUSytoQkx5c25XNTNabjVFS3Z6cHhXNkZCRjVMZmEyNnlCU2N3OC9ReDA0WVFGY1VLSGxjcTJ6b3BKWjRhcmMwVTdlc0c1aiszaWprVHNlR2VUb1N6YUdDWmtyZUsxU0Zja3k5TDdvOGZ3Zk5qMncrT3RPczQ4MWtTekZJWDk5RlhCbjIxTVh2MXF5RUpJUkQwQStDbURzU2huUlJnV2I0dk5BSFpDL1hRT3hKMzM3N2FZYWRRN3MxRUF6b0w4aVlNWUdiVU4vbjdKVURwZFcvbklUL2JlVlhZRXJBRmFiaDRHTWtJeFNKWlVOVWZPbmdza0tjK3NsRFI1QzZVPQ==/attach/object/PYZM2BIBOA" alt="img"></p><p>我是代码里用了异步线程，AOP做了一层切面处理，底层是通过jdk动态代理cglib实现。</p><h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p><img src="http://www.kdocs.cn/api/v3/office/copy/bFFKUytlZEZkMUhNeGRUSytoQkx5c25XNTNabjVFS3Z6cHhXNkZCRjVMZmEyNnlCU2N3OC9ReDA0WVFGY1VLSGxjcTJ6b3BKWjRhcmMwVTdlc0c1aiszaWprVHNlR2VUb1N6YUdDWmtyZUsxU0Zja3k5TDdvOGZ3Zk5qMncrT3RPczQ4MWtTekZJWDk5RlhCbjIxTVh2MXF5RUpJUkQwQStDbURzU2huUlJnV2I0dk5BSFpDL1hRT3hKMzM3N2FZYWRRN3MxRUF6b0w4aVlNWUdiVU4vbjdKVURwZFcvbklUL2JlVlhZRXJBRmFiaDRHTWtJeFNKWlVOVWZPbmdza0tjK3NsRFI1QzZVPQ==/attach/object/EQ2M2BIA5M" alt="img"></p><p>为什么一定要Integer不能用Int类型</p><p>查了一下，如果代理的方法返回值类型为void，就return null；否则就return method.invoke(my, args);</p><p>也就是说，动态代理在没有返回值的情况下，会返回null值。</p><p>我使用的@Asyn就是没有返回值的，所以会返回null</p><p>null值必须用包装类Integer去接收。</p><p>修改前</p><p><img src="http://www.kdocs.cn/api/v3/office/copy/bFFKUytlZEZkMUhNeGRUSytoQkx5c25XNTNabjVFS3Z6cHhXNkZCRjVMZmEyNnlCU2N3OC9ReDA0WVFGY1VLSGxjcTJ6b3BKWjRhcmMwVTdlc0c1aiszaWprVHNlR2VUb1N6YUdDWmtyZUsxU0Zja3k5TDdvOGZ3Zk5qMncrT3RPczQ4MWtTekZJWDk5RlhCbjIxTVh2MXF5RUpJUkQwQStDbURzU2huUlJnV2I0dk5BSFpDL1hRT3hKMzM3N2FZYWRRN3MxRUF6b0w4aVlNWUdiVU4vbjdKVURwZFcvbklUL2JlVlhZRXJBRmFiaDRHTWtJeFNKWlVOVWZPbmdza0tjK3NsRFI1QzZVPQ==/attach/object/Y42M2BIAF4" alt="img"></p><p>修改后</p><p><img src="http://www.kdocs.cn/api/v3/office/copy/bFFKUytlZEZkMUhNeGRUSytoQkx5c25XNTNabjVFS3Z6cHhXNkZCRjVMZmEyNnlCU2N3OC9ReDA0WVFGY1VLSGxjcTJ6b3BKWjRhcmMwVTdlc0c1aiszaWprVHNlR2VUb1N6YUdDWmtyZUsxU0Zja3k5TDdvOGZ3Zk5qMncrT3RPczQ4MWtTekZJWDk5RlhCbjIxTVh2MXF5RUpJUkQwQStDbURzU2huUlJnV2I0dk5BSFpDL1hRT3hKMzM3N2FZYWRRN3MxRUF6b0w4aVlNWUdiVU4vbjdKVURwZFcvbklUL2JlVlhZRXJBRmFiaDRHTWtJeFNKWlVOVWZPbmdza0tjK3NsRFI1QzZVPQ==/attach/object/RE242BIAWU" alt="img"></p><p>参考链接</p><p><a href="https://stackoverflow.com/questions/56497893/org-springframework-aop-aopinvocationexception-null-return-value-from-advice-do">https://stackoverflow.com/questions/56497893/org-springframework-aop-aopinvocationexception-null-return-value-from-advice-do</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>TransmittableThreadLocal 的使用指南</title>
       <link href="/2023/10/16/TransmittableThreadLocal-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"/>
       <url>/2023/10/16/TransmittableThreadLocal-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
