@@ -191,29 +191,4 @@
     
   </entry>
   
-  <entry>
-    <title>TransmittableThreadLocal 的使用指南</title>
-    <link href="https://codingwenjie.github.io/2023/06/17/TransmittableThreadLocal%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"/>
-    <id>https://codingwenjie.github.io/2023/06/17/TransmittableThreadLocal%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</id>
-    <published>2023-06-17T15:14:00.000Z</published>
-    <updated>2024-03-04T14:37:34.680Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;TransmittableThreadLocal-的使用指南&quot;&gt;&lt;a href=&quot;#TransmittableThreadLocal-的使用指南&quot; class=&quot;headerlink&quot; title=&quot;TransmittableThreadLocal</summary>
-        
-      
-    
-    
-    
-    <category term="多线程" scheme="https://codingwenjie.github.io/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-    <category term="java" scheme="https://codingwenjie.github.io/tags/java/"/>
-    
-  </entry>
-  
 </feed>
